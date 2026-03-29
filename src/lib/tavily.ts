@@ -38,7 +38,7 @@ async function searchWithQueries(
   const results = await Promise.allSettled(
     items.map((item) =>
       getClient().search(item.query, {
-        searchDepth: "advanced",
+        searchDepth: "basic",
         maxResults: 2,
       })
     )

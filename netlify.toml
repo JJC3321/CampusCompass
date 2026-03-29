@@ -7,3 +7,9 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+[functions]
+  external_node_modules = ["@tavily/core"]
+
+[functions."___netlify-server-handler"]
+  timeout = 26
