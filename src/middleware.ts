@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
 
-export default async function middleware(request: NextRequest) {
+export default async function middleware(request: NextRequest, event: NextFetchEvent) {
   if (
     !process.env.WORKOS_API_KEY ||
     !process.env.WORKOS_CLIENT_ID ||
@@ -17,7 +17,7 @@ export default async function middleware(request: NextRequest) {
         unauthenticatedPaths: ["/api/auth/callback", "/api/auth/sign-out"],
       },
     });
-    return handler(request);
+    return handler(request, event);
   } catch {
     return NextResponse.next();
   }
