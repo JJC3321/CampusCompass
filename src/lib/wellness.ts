@@ -1,0 +1,119 @@
+export interface WellnessSource {
+  readonly domain: string;
+  readonly name: string;
+  readonly tags: readonly string[];
+}
+
+export const WELLNESS_SOURCES: readonly WellnessSource[] = [
+  // Crisis & immediate support
+  { domain: "988lifeline.org", name: "988 Suicide & Crisis Lifeline", tags: ["general"] },
+  { domain: "crisistextline.org", name: "Crisis Text Line", tags: ["general"] },
+  { domain: "thetrevorproject.org", name: "The Trevor Project", tags: ["LGBTQ+"] },
+  { domain: "translifeline.org", name: "Trans Lifeline", tags: ["LGBTQ+"] },
+  { domain: "suicidepreventionlifeline.org", name: "Suicide Prevention Lifeline", tags: ["general"] },
+  { domain: "samaritans.org", name: "Samaritans", tags: ["general"] },
+  { domain: "imalive.org", name: "IMAlive", tags: ["general"] },
+
+  // Free / low-cost therapy & counseling
+  { domain: "openpathcollective.org", name: "Open Path Collective", tags: ["general"] },
+  { domain: "betterhelp.com", name: "BetterHelp", tags: ["general"] },
+  { domain: "talkspace.com", name: "Talkspace", tags: ["general"] },
+  { domain: "7cups.com", name: "7 Cups (Free Listening)", tags: ["general"] },
+  { domain: "nami.org", name: "NAMI (National Alliance on Mental Illness)", tags: ["general"] },
+  { domain: "mhanational.org", name: "Mental Health America", tags: ["general"] },
+  { domain: "therapyforblackgirls.com", name: "Therapy for Black Girls", tags: ["Black", "African American", "Female"] },
+  { domain: "therapyforblackmen.org", name: "Therapy for Black Men", tags: ["Black", "African American", "Male"] },
+  { domain: "inclusivetherapists.com", name: "Inclusive Therapists", tags: ["LGBTQ+", "general"] },
+  { domain: "aakoma.org", name: "AAKOMA Project", tags: ["Black", "African American"] },
+  { domain: "latinxtherapy.com", name: "Latinx Therapy", tags: ["Hispanic", "Latino", "Latina"] },
+  { domain: "asianmentalhealthcollective.com", name: "Asian Mental Health Collective", tags: ["Asian"] },
+  { domain: "stronghearts.org", name: "StrongHearts Native Helpline", tags: ["Native American", "Indigenous"] },
+  { domain: "psychologytoday.com", name: "Psychology Today Therapist Finder", tags: ["general"] },
+  { domain: "goodtherapy.org", name: "GoodTherapy", tags: ["general"] },
+  { domain: "mantherapy.org", name: "Man Therapy", tags: ["Male"] },
+  { domain: "postpartum.net", name: "Postpartum Support International", tags: ["Female"] },
+  { domain: "postpartumprogress.com", name: "Postpartum Progress", tags: ["Female"] },
+
+  // NYC-specific resources
+  { domain: "nyc.gov", name: "NYC Well", tags: ["general"] },
+  { domain: "nyumc.org", name: "NYU Mental Health", tags: ["general"] },
+  { domain: "columbiapsychiatry.org", name: "Columbia Psychiatry", tags: ["general"] },
+  { domain: "mountsinai.org", name: "Mount Sinai Behavioral Health", tags: ["general"] },
+  { domain: "nypl.org", name: "NYPL Social Services", tags: ["general"] },
+
+  // Wellness & mindfulness apps
+  { domain: "headspace.com", name: "Headspace (Student Plan)", tags: ["general"] },
+  { domain: "calm.com", name: "Calm", tags: ["general"] },
+  { domain: "insighttimer.com", name: "Insight Timer", tags: ["general"] },
+  { domain: "wakingup.com", name: "Waking Up", tags: ["general"] },
+  { domain: "tenpercent.com", name: "Ten Percent Happier", tags: ["general"] },
+  { domain: "sanvello.com", name: "Sanvello", tags: ["general"] },
+  { domain: "mindful.org", name: "Mindful.org", tags: ["general"] },
+  { domain: "stopbreathethink.com", name: "Stop, Breathe & Think", tags: ["general"] },
+
+  // Campus-adjacent wellness
+  { domain: "jedfoundation.org", name: "JED Foundation", tags: ["general"] },
+  { domain: "activeminds.org", name: "Active Minds", tags: ["general"] },
+  { domain: "halfofus.com", name: "Half of Us", tags: ["general"] },
+  { domain: "ulifeline.org", name: "ULifeline", tags: ["general"] },
+  { domain: "mindyourmind.org", name: "Mind Your Mind", tags: ["general"] },
+  { domain: "thetrevorproject.org", name: "TrevorSpace", tags: ["LGBTQ+"] },
+
+  // Physical wellness & basic needs
+  { domain: "feedingamerica.org", name: "Feeding America", tags: ["general"] },
+  { domain: "swipehunger.org", name: "Swipe Out Hunger", tags: ["general"] },
+  { domain: "getfed.org", name: "GetFed (Campus Food Pantries)", tags: ["general"] },
+  { domain: "onedegree.org", name: "One Degree (Student Resources)", tags: ["general"] },
+  { domain: "nafcclinics.org", name: "NAFC Free Clinics", tags: ["general"] },
+  { domain: "plannedparenthood.org", name: "Planned Parenthood", tags: ["general"] },
+  { domain: "findahealthcenter.hrsa.gov", name: "HRSA Health Centers", tags: ["general"] },
+  { domain: "foodbanknyc.org", name: "Food Bank NYC", tags: ["general"] },
+  { domain: "cityharvest.org", name: "City Harvest", tags: ["general"] },
+
+  // Substance use & recovery
+  { domain: "samhsa.gov", name: "SAMHSA Helpline", tags: ["general"] },
+  { domain: "collegiaterecovery.org", name: "Association of Recovery in Higher Education", tags: ["general"] },
+  { domain: "shatterproof.org", name: "Shatterproof", tags: ["general"] },
+  { domain: "facesandvoicesofrecovery.org", name: "Faces & Voices of Recovery", tags: ["general"] },
+  { domain: "smartrecovery.org", name: "SMART Recovery", tags: ["general"] },
+  { domain: "thecollegiaterecovery.org", name: "Collegiate Recovery", tags: ["general"] },
+
+  // Sleep & stress
+  { domain: "sleepfoundation.org", name: "Sleep Foundation", tags: ["general"] },
+  { domain: "adaa.org", name: "Anxiety & Depression Association of America", tags: ["general"] },
+  { domain: "stress.org", name: "American Institute of Stress", tags: ["general"] },
+  { domain: "ptsd.va.gov", name: "VA PTSD Resources", tags: ["general"] },
+
+  // Financial wellness (stress reduction)
+  { domain: "studentloanborrowerassistance.org", name: "Student Loan Borrower Assistance", tags: ["general"] },
+  { domain: "everfi.com", name: "EverFi Financial Wellness", tags: ["general"] },
+  { domain: "cafecollege.org", name: "CafeCollege Financial Aid", tags: ["general"] },
+  { domain: "nclc.org", name: "National Consumer Law Center", tags: ["general"] },
+
+  // Student veteran support
+  { domain: "studentveterans.org", name: "Student Veterans of America", tags: ["general"] },
+  { domain: "va.gov", name: "VA Education Benefits", tags: ["general"] },
+  { domain: "vets.gov", name: "Vets.gov", tags: ["general"] },
+
+  // Disability & accessibility
+  { domain: "aapd.com", name: "American Association of People with Disabilities", tags: ["general"] },
+  { domain: "dyslexiaida.org", name: "International Dyslexia Association", tags: ["general"] },
+  { domain: "chadd.org", name: "CHADD (ADHD Support)", tags: ["general"] },
+  { domain: "nami.org", name: "NAMI on Campus", tags: ["general"] },
+];
+
+export function getWellnessDomains(
+  raceEthnicity: string,
+  gender: string
+): readonly string[] {
+  return WELLNESS_SOURCES.filter((s) => {
+    const matchesGeneral = s.tags.includes("general");
+    const matchesRace = s.tags.some((tag) =>
+      raceEthnicity.toLowerCase().includes(tag.toLowerCase())
+    );
+    const matchesGender = s.tags.some((tag) =>
+      gender.toLowerCase().includes(tag.toLowerCase())
+    );
+    return matchesGeneral || matchesRace || matchesGender;
+  }).map((s) => s.domain);
+}

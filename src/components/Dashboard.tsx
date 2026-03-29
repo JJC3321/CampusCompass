@@ -94,16 +94,6 @@ export default function Dashboard({ userProfile }: DashboardProps) {
         <div className="flex-1">
           <SearchBar onSearch={handleSearch} loading={loading} />
         </div>
-
-        {/* Mobile filter button */}
-        <MobileNav
-          activeFilters={activeFilters}
-          onToggle={toggleFilter}
-          chatMessages={messages}
-          chatLoading={chatLoading}
-          onChatSend={sendMessage}
-          userProfile={userProfile}
-        />
       </div>
 
       {/* Three-panel layout */}
