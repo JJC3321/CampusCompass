@@ -1,6 +1,6 @@
-import { NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   if (
     !process.env.WORKOS_API_KEY ||
     !process.env.WORKOS_CLIENT_ID ||
