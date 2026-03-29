@@ -1,40 +1,85 @@
-# Scholar Soft
+# CampusCompass
 
-Scholar Soft is a platform dedicated to empowering students by revolutionizing access to educational financial opportunities. We believe that financial barriers should never limit academic potential.
+**CampusCompass** is an AI-powered resource discovery platform built for NYC college students. It connects students with scholarships, mental health support, learning programs, and more — personalized to who they are and where they go to school.
 
-## Social Impact
+Built at **RamHacks** by a team that believes financial and personal barriers should never get in the way of a student's potential.
 
-Scholar Soft transforms lives by democratizing access to scholarships, grants, and financial aid opportunities. By leveraging intelligent matching algorithms, we connect students with funding opportunities they might otherwise never discover. Our platform has helped countless students from underprivileged backgrounds secure the resources needed to pursue their educational dreams.
+---
 
-## Revolutionizing Finance
+## The Problem
 
-Scholar Soft is redefining how students discover and access financial aid. Traditional scholarship searches are fragmented, time-consuming, and often miss crucial opportunities. Our platform centralizes thousands of funding sources into a single, intelligent interface that learns from user preferences and delivers personalized recommendations. This streamlined approach has dramatically increased the success rate of applications while reducing the time students spend searching for opportunities.
+NYC college students are surrounded by resources — scholarships, wellness programs, tutoring, food assistance — but most never find them. The information is scattered, hard to search, and rarely tailored to the student's background or school.
+
+## Our Solution
+
+CampusCompass brings everything into one place. Students sign in, tell us a little about themselves, and instantly get a personalized map of resources near their campus. An AI assistant helps them dig deeper, answering questions and surfacing opportunities they didn't know existed.
+
+---
+
+## Features
+
+- **Personalized resource map** — scholarships, mental health, learning programs, and more pinned to real NYC locations
+- **AI chat assistant** — powered by OpenRouter, helps students find what they need in plain language
+- **Smart filtering** — filter by category, location, and relevance to your profile
+- **Persistent login** — sign in once with WorkOS AuthKit, preferences saved automatically
+- **Save resources** — pin resources to revisit later
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | Next.js 14 (App Router) |
+| Auth | WorkOS AuthKit |
+| AI | OpenRouter (free tier) |
+| Search | Tavily API |
+| Map | React Leaflet |
+| Styling | Tailwind CSS |
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+You'll need API keys for:
+- [WorkOS](https://workos.com) — authentication
+- [OpenRouter](https://openrouter.ai) — AI chat and resource filtering
+- [Tavily](https://tavily.com) — web search
+
+### Setup
+
+1. Clone the repo and install dependencies:
+
+```bash
+npm install
+```
+
+2. Create a `.env.local` file in the project root:
+
+```env
+WORKOS_API_KEY=your_workos_api_key
+WORKOS_CLIENT_ID=your_workos_client_id
+NEXT_PUBLIC_WORKOS_REDIRECT_URI=http://localhost:3000/api/auth/callback
+WORKOS_COOKIE_PASSWORD=your_32_plus_char_secret  # generate: openssl rand -base64 32
+
+OPENROUTER_API_KEY=your_openrouter_api_key
+OPENROUTER_MODEL=openrouter/free
+
+TAVILY_API_KEY=your_tavily_api_key
+```
+
+3. Run the dev server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to see it running.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Team
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Built with care at RamHacks — for NYC students, by NYC students.
