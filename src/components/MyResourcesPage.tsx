@@ -20,11 +20,10 @@ export default function MyResourcesPage({
           My Resources
         </p>
         <h1 className="mt-2 font-headline text-3xl font-bold tracking-tight text-on-surface">
-          Your pinned support library
+          Your saved resources
         </h1>
         <p className="mt-2 max-w-2xl text-sm leading-6 text-on-surface-variant">
-          Save useful scholarships, housing support, food security options, and
-          campus services here for quick follow-up during the demo.
+          Pin scholarships, wellness support, food resources, and campus services from Explore to keep them in one place.
         </p>
       </div>
 

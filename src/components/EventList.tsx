@@ -1,7 +1,9 @@
 "use client";
 
-import { Resource } from "@/types";
+import { Category, Resource, CATEGORY_FULL_LABELS, CATEGORY_ICONS, CATEGORY_COLORS } from "@/types";
 import EventCard from "./EventCard";
+
+const ALL_CATEGORIES: Category[] = ["scholarships", "mental-health", "food-security", "housing", "career-prep"];
 
 interface EventListProps {
   readonly resources: readonly Resource[];
@@ -11,6 +13,7 @@ interface EventListProps {
   readonly selectedLocation?: string;
   readonly pinnedIds?: ReadonlySet<string>;
   readonly onTogglePinned?: (resource: Resource) => void;
+  readonly onCategorySearch?: (category: Category) => void;
 }
 
 function SkeletonCard() {
@@ -39,6 +42,7 @@ export default function EventList({
   selectedLocation,
   pinnedIds = new Set(),
   onTogglePinned,
+  onCategorySearch,
 }: EventListProps) {
   const locationLabel = selectedLocation ?? "New York City";
 
@@ -84,20 +88,32 @@ export default function EventList({
             {[0, 1, 2, 3, 4, 5].map((i) => <SkeletonCard key={i} />)}
           </div>
         ) : resources.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-10 text-center">
-            <span className="material-symbols-outlined text-4xl text-outline-variant mb-2">
-              search_off
-            </span>
-            <p className="text-sm text-on-surface-variant font-medium">No resources found</p>
-            <p className="mt-1 text-xs text-outline-variant">
-              {currentQuery ? "Try a different search term" : "Try adjusting your filters or location"}
+          <div className="flex flex-col gap-3 py-3">
+            <p className="text-xs text-on-surface-variant px-1">
+              {currentQuery ? "No matches — try a different term or browse by category:" : "Browse by category to get started:"}
             </p>
+            <div className="flex flex-wrap gap-2">
+              {ALL_CATEGORIES.map((cat) => (
+                <button
+                  key={cat}
+                  type="button"
+                  onClick={() => onCategorySearch?.(cat)}
+                  className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold border border-outline-variant/30 bg-surface-container-low hover:bg-surface-container transition-colors"
+                  style={{ color: CATEGORY_COLORS[cat] }}
+                >
+                  <span className="material-symbols-outlined" style={{ fontSize: "13px", fontVariationSettings: "'FILL' 1", color: CATEGORY_COLORS[cat] }}>
+                    {CATEGORY_ICONS[cat]}
+                  </span>
+                  {CATEGORY_FULL_LABELS[cat]}
+                </button>
+              ))}
+            </div>
             {onReset && currentQuery && (
               <button
                 onClick={onReset}
-                className="mt-4 px-4 py-2 text-sm font-semibold bg-primary text-on-primary rounded-xl hover:bg-primary-dim transition-colors"
+                className="self-start text-xs text-primary underline underline-offset-2 hover:no-underline"
               >
-                Show All Resources
+                Clear search
               </button>
             )}
           </div>

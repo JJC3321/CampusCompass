@@ -39,6 +39,18 @@ const PINNED_STORAGE_KEY = "scholar-soft-pinned";
 // Central Park background
 const BG_PHOTO = "https://images.unsplash.com/photo-1568515387631-8b650bbcdb90?w=1920&q=85&auto=format&fit=crop";
 
+// Default NYC pins shown on the map before search results load
+const SEED_MAP_RESOURCES: import("@/types").Resource[] = [
+  { id: "_s1", title: "NYU Financial Aid Office", description: "Scholarships, grants, and work-study for NYU students.", url: "https://www.nyu.edu/financial-aid", category: "scholarships", lat: 40.7295, lng: -73.9965, location: "Greenwich Village", date: null },
+  { id: "_s2", title: "CUNY Scholarship Hub", description: "Scholarship and aid resources across all CUNY campuses.", url: "https://www.cuny.edu", category: "scholarships", lat: 40.7527, lng: -73.9772, location: "Midtown", date: null },
+  { id: "_s3", title: "NYU Wellness Exchange", description: "24/7 mental health counseling and crisis support.", url: "https://www.nyu.edu/wellnessexchange", category: "mental-health", lat: 40.729, lng: -73.998, location: "Washington Square", date: null },
+  { id: "_s4", title: "Columbia Counseling", description: "Counseling and psychological services for Columbia students.", url: "https://health.columbia.edu/counseling", category: "mental-health", lat: 40.8075, lng: -73.9626, location: "Morningside Heights", date: null },
+  { id: "_s5", title: "City Harvest", description: "NYC's largest food rescue and community pantry network.", url: "https://www.cityharvest.org", category: "food-security", lat: 40.7549, lng: -73.984, location: "Hell's Kitchen", date: null },
+  { id: "_s6", title: "Food Bank For NYC", description: "Emergency food assistance and pantry locations.", url: "https://www.foodbanknyc.org", category: "food-security", lat: 40.7614, lng: -73.9776, location: "Midtown East", date: null },
+  { id: "_s7", title: "NYC Housing Connect", description: "Affordable housing lottery applications and tenant resources.", url: "https://housingconnect.nyc.gov", category: "housing", lat: 40.7128, lng: -74.006, location: "Lower Manhattan", date: null },
+  { id: "_s8", title: "Fordham Career Center", description: "Career coaching, internship listings, and recruiting events.", url: "https://www.fordham.edu/careers", category: "career-prep", lat: 40.8617, lng: -73.886, location: "The Bronx", date: null },
+];
+
 export default function Dashboard({ userProfile }: DashboardProps) {
   const {
     resources,
@@ -226,11 +238,6 @@ export default function Dashboard({ userProfile }: DashboardProps) {
           <AppNav activeView={activeView} onChangeView={setActiveView} />
         </div>
 
-        {/* Search */}
-        <div className="hidden md:block flex-1 max-w-xs lg:max-w-sm">
-          <SearchBar onSearch={handleSearch} loading={loading} />
-        </div>
-
         {/* Avatar + sign-out */}
         <div className="flex items-center gap-2 ml-auto">
           <div className="relative" ref={avatarRef}>
@@ -355,7 +362,7 @@ export default function Dashboard({ userProfile }: DashboardProps) {
           >
             {/* Map container */}
             <div className="relative flex-none rounded-2xl overflow-hidden shadow-panel" style={{ height: "55%" }}>
-              <MapView resources={resources} center={center} />
+              <MapView resources={resources.length > 0 ? resources : SEED_MAP_RESOURCES} center={center} />
 
               {/* Zoom controls */}
               <div className="absolute bottom-4 right-4 flex flex-col gap-1.5 z-[5]">
@@ -380,7 +387,10 @@ export default function Dashboard({ userProfile }: DashboardProps) {
             </div>
 
             {/* Resource list below map — frosted glass */}
-            <div className="flex-1 overflow-hidden rounded-2xl bg-surface/88 backdrop-blur-xl border border-white/15 shadow-card">
+            <div className="flex-1 overflow-hidden rounded-2xl bg-surface/88 backdrop-blur-xl border border-white/15 shadow-card flex flex-col">
+              <div className="px-3 pt-3 pb-2 shrink-0">
+                <SearchBar onSearch={handleSearch} loading={loading} />
+              </div>
               <EventList
                 resources={resources}
                 loading={loading}
@@ -389,6 +399,7 @@ export default function Dashboard({ userProfile }: DashboardProps) {
                 selectedLocation={selectedLocation}
                 pinnedIds={pinnedIds}
                 onTogglePinned={handleTogglePinned}
+                onCategorySearch={(cat) => handleSearch(cat.replace("-", " "))}
               />
             </div>
 
@@ -427,6 +438,7 @@ export default function Dashboard({ userProfile }: DashboardProps) {
                   selectedLocation={selectedLocation}
                   pinnedIds={pinnedIds}
                   onTogglePinned={handleTogglePinned}
+                  onCategorySearch={(cat) => handleSearch(cat.replace("-", " "))}
                 />
               </div>
             </aside>

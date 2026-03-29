@@ -49,12 +49,10 @@ export default function InsightsPage({
           Your Insights
         </p>
         <h1 className="mt-2 font-headline text-3xl font-bold tracking-tight text-on-surface">
-          A lightweight student snapshot
+          Your activity overview
         </h1>
         <p className="mt-2 max-w-2xl text-sm leading-6 text-on-surface-variant">
-          This page keeps analytics believable for the hackathon by focusing on
-          discovery, saving behavior, and the kinds of support the student is
-          exploring.
+          Track what you've explored, saved, and the categories most relevant to you.
         </p>
       </div>
 
@@ -94,7 +92,7 @@ export default function InsightsPage({
                   Top categories viewed
                 </h2>
                 <p className="mt-1 text-sm text-on-surface-variant">
-                  Wireframe chart placeholder for student interest patterns.
+                  Categories you've been exploring most.
                 </p>
               </div>
               <span className="material-symbols-outlined text-primary">
@@ -132,20 +130,17 @@ export default function InsightsPage({
 
           <article className="rounded-[1.75rem] border border-white/70 bg-surface-container-lowest p-5 shadow-sm">
             <h2 className="font-headline text-xl font-bold text-on-surface">
-              Demo note
+              How to use CampusCompass
             </h2>
             <div className="mt-5 space-y-3">
               <div className="rounded-2xl bg-surface-container-low p-4 text-sm leading-6 text-on-surface">
-                Scholar Soft helps students move from browsing resources to
-                saving the ones most worth acting on.
+                Search or browse by category in <span className="font-semibold">Explore</span> to find scholarships, wellness support, food resources, and more near your campus.
               </div>
               <div className="rounded-2xl bg-surface-container-low p-4 text-sm leading-6 text-on-surface">
-                These lightweight insights reinforce the product story without
-                requiring heavy backend analytics.
+                Pin any resource to <span className="font-semibold">My Resources</span> so you can quickly find it later without searching again.
               </div>
               <div className="rounded-2xl bg-surface-container-low p-4 text-sm leading-6 text-on-surface">
-                Judges can quickly see engagement, focus areas, and follow-up
-                intent.
+                Ask the AI assistant anything — it can help surface resources tailored to your background and interests.
               </div>
             </div>
           </article>
