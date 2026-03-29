@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Josefin_Sans } from "next/font/google";
-import { AuthKitProvider } from "@workos-inc/authkit-nextjs/components";
 import "./globals.css";
+import AuthProvider from "@/components/AuthProvider";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -39,7 +39,7 @@ export default function RootLayout({
       <body
         className={`${playfair.variable} ${josefin.variable} font-body antialiased bg-background text-on-surface`}
       >
-        <AuthKitProvider>{children}</AuthKitProvider>
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );
