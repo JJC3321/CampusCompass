@@ -11,11 +11,13 @@ interface MapChatOverlayProps {
   readonly mode?: "panel" | "overlay";
 }
 
-const SUGGESTED_QUESTIONS = [
-  "What are the best housing options near NYU?",
-  "Where can I find on-campus food pantries?",
-  "Explain how federal work-study works?",
-];
+function getSuggestedQuestions(school: string) {
+  return [
+    `What are the best housing options near ${school}?`,
+    "Where can I find on-campus food pantries?",
+    "Explain how federal work-study works?",
+  ];
+}
 
 export default function MapChatOverlay({
   messages,
@@ -49,7 +51,7 @@ export default function MapChatOverlay({
                 What kind of support are you looking for?
               </h3>
               <div className="space-y-2">
-                {SUGGESTED_QUESTIONS.map((q) => (
+                {getSuggestedQuestions(userProfile.school).map((q) => (
                   <button
                     key={q}
                     onClick={() => onSend(q, userProfile)}
