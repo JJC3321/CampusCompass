@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { UserProfile } from "@/types";
 import { NYC_SCHOOLS } from "@/lib/schools";
 
@@ -26,6 +26,113 @@ const ETHNICITY_OPTIONS = [
   "Other",
   "Prefer not to say",
 ] as const;
+
+interface CustomSelectProps {
+  id: string;
+  value: string;
+  onChange: (value: string) => void;
+  options: readonly string[];
+  placeholder: string;
+  label: string;
+  searchable?: boolean;
+}
+
+function CustomSelect({ id, value, onChange, options, placeholder, label, searchable = false }: CustomSelectProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const containerRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const filteredOptions = searchable
+    ? options.filter((opt) => opt.toLowerCase().includes(searchQuery.toLowerCase()))
+    : options;
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    if (isOpen && searchable && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isOpen, searchable]);
+
+  const displayValue = value || placeholder;
+
+  return (
+    <div ref={containerRef} className="relative">
+      <button
+        type="button"
+        id={id}
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex w-full items-center justify-between rounded-lg border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-left text-sm text-slate-900 focus:border-scholarship focus:bg-white focus:outline-none focus:ring-2 focus:ring-scholarship/20"
+      >
+        <span className={value ? "text-slate-900" : "text-slate-400"}>
+          {displayValue}
+        </span>
+        <svg
+          className={`h-4 w-4 shrink-0 text-slate-400 transition-transform ${isOpen ? "rotate-180" : ""}`}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      {isOpen && (
+        <div className="absolute z-50 mt-1 w-full rounded-lg border border-slate-200 bg-white py-1 shadow-lg">
+          {searchable && (
+            <div className="border-b border-slate-100 px-3 py-2">
+              <input
+                ref={inputRef}
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search..."
+                className="w-full rounded-md border border-slate-200 bg-slate-50 px-2 py-1.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-scholarship focus:outline-none focus:ring-1 focus:ring-scholarship/20"
+                onClick={(e) => e.stopPropagation()}
+              />
+            </div>
+          )}
+          <div className="max-h-60 overflow-auto">
+            <button
+              type="button"
+              onClick={() => {
+                onChange("");
+                setIsOpen(false);
+                setSearchQuery("");
+              }}
+              className={`w-full px-3.5 py-2 text-left text-sm hover:bg-slate-50 ${!value ? "bg-slate-50 font-medium text-scholarship" : "text-slate-400"}`}
+            >
+              {placeholder}
+            </button>
+            {filteredOptions.map((option) => (
+              <button
+                key={option}
+                type="button"
+                onClick={() => {
+                  onChange(option);
+                  setIsOpen(false);
+                  setSearchQuery("");
+                }}
+                className={`w-full px-3.5 py-2 text-left text-sm hover:bg-slate-50 ${value === option ? "bg-slate-50 font-medium text-scholarship" : "text-slate-700"}`}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function OnboardingCard({ onSubmit }: OnboardingCardProps) {
   const [fullName, setFullName] = useState("");
@@ -53,6 +160,8 @@ export default function OnboardingCard({ onSubmit }: OnboardingCardProps) {
 
   const inputClasses =
     "w-full rounded-xl bg-surface-container-highest border-none px-4 py-3 text-sm text-on-surface placeholder:text-on-surface-variant/60 focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary transition-all";
+
+  const schoolNames = NYC_SCHOOLS.map((s) => s.name);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -106,19 +215,15 @@ export default function OnboardingCard({ onSubmit }: OnboardingCardProps) {
           >
             School
           </label>
-          <select
+          <CustomSelect
             id="school"
             value={school}
-            onChange={(e) => setSchool(e.target.value)}
-            className={inputClasses}
-          >
-            <option value="">Select your school</option>
-            {NYC_SCHOOLS.map((s) => (
-              <option key={s.name} value={s.name}>
-                {s.name}
-              </option>
-            ))}
-          </select>
+            onChange={setSchool}
+            options={schoolNames}
+            placeholder="Select your school"
+            label="School"
+            searchable
+          />
         </div>
 
         {/* Gender */}
@@ -129,19 +234,14 @@ export default function OnboardingCard({ onSubmit }: OnboardingCardProps) {
           >
             Gender
           </label>
-          <select
+          <CustomSelect
             id="gender"
             value={gender}
-            onChange={(e) => setGender(e.target.value)}
-            className={inputClasses}
-          >
-            <option value="">Select gender</option>
-            {GENDER_OPTIONS.map((g) => (
-              <option key={g} value={g}>
-                {g}
-              </option>
-            ))}
-          </select>
+            onChange={setGender}
+            options={GENDER_OPTIONS}
+            placeholder="Select gender"
+            label="Gender"
+          />
         </div>
 
         {/* Race/Ethnicity */}
@@ -152,19 +252,14 @@ export default function OnboardingCard({ onSubmit }: OnboardingCardProps) {
           >
             Race/Ethnicity
           </label>
-          <select
+          <CustomSelect
             id="raceEthnicity"
             value={raceEthnicity}
-            onChange={(e) => setRaceEthnicity(e.target.value)}
-            className={inputClasses}
-          >
-            <option value="">Select race/ethnicity</option>
-            {ETHNICITY_OPTIONS.map((r) => (
-              <option key={r} value={r}>
-                {r}
-              </option>
-            ))}
-          </select>
+            onChange={setRaceEthnicity}
+            options={ETHNICITY_OPTIONS}
+            placeholder="Select race/ethnicity"
+            label="Race/Ethnicity"
+          />
         </div>
 
         {/* Submit */}
