@@ -142,18 +142,3 @@ export const SCHOLARSHIP_SOURCES: readonly ScholarshipSource[] = [
   { domain: "nationaleyecenter.org", name: "Eye Care Scholarships", tags: ["general"] },
 ];
 
-export function getScholarshipDomains(
-  raceEthnicity: string,
-  gender: string
-): readonly string[] {
-  return SCHOLARSHIP_SOURCES.filter((s) => {
-    const matchesGeneral = s.tags.includes("general");
-    const matchesRace = s.tags.some((tag) =>
-      raceEthnicity.toLowerCase().includes(tag.toLowerCase())
-    );
-    const matchesGender = s.tags.some((tag) =>
-      gender.toLowerCase().includes(tag.toLowerCase())
-    );
-    return matchesGeneral || matchesRace || matchesGender;
-  }).map((s) => s.domain);
-}

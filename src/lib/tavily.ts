@@ -1,6 +1,6 @@
 import { tavily } from "@tavily/core";
 import { GeminiSuggestion } from "./gemini";
-import { Category, SearchRequest } from "@/types";
+import { Category } from "@/types";
 
 function getClient() {
   const apiKey = process.env.TAVILY_API_KEY;
@@ -21,24 +21,6 @@ export interface CategorizedResults {
   readonly results: readonly TavilyResult[];
 }
 
-function buildQueries(profile: SearchRequest): readonly string[] {
-  const { school, raceEthnicity, query } = profile;
-
-  const queries = [
-    `${school} scholarships financial aid ${raceEthnicity !== "Prefer not to say" ? raceEthnicity : ""} students 2026`,
-    `free mental health counseling wellness resources NYC college students near ${school}`,
-    `food pantry food assistance free meals NYC college students near ${school}`,
-    `affordable student housing housing assistance NYC college students near ${school}`,
-    `career prep internship mentorship programs NYC college students ${school}`,
-  ];
-
-  if (query) {
-    return [...queries, `${query} ${school} NYC students`];
-  }
-
-  return queries;
-}
-
 export async function searchFromSuggestions(
   suggestions: readonly GeminiSuggestion[]
 ): Promise<readonly CategorizedResults[]> {
@@ -48,26 +30,6 @@ export async function searchFromSuggestions(
       category: s.category,
     }))
   );
-}
-
-export async function searchResources(
-  profile: SearchRequest
-): Promise<readonly CategorizedResults[]> {
-  const queries = buildQueries(profile);
-  const categories: readonly Category[] = [
-    "scholarships",
-    "mental-health",
-    "food-security",
-    "housing",
-    "career-prep",
-  ];
-
-  const searchItems = queries.map((query, index) => ({
-    query,
-    category: categories[index] || "other",
-  }));
-
-  return searchWithQueries(searchItems);
 }
 
 async function searchWithQueries(

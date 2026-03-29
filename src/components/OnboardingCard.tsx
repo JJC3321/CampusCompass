@@ -37,7 +37,7 @@ interface CustomSelectProps {
   searchable?: boolean;
 }
 
-function CustomSelect({ id, value, onChange, options, placeholder, label, searchable = false }: CustomSelectProps) {
+function CustomSelect({ id, value, onChange, options, placeholder, searchable = false }: CustomSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const containerRef = useRef<HTMLDivElement>(null);

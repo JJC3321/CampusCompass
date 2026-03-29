@@ -199,18 +199,3 @@ export const OPPORTUNITY_SOURCES: readonly OpportunitySource[] = [
   { domain: "writingcontests.org", name: "Writing Contests Database", tags: ["general"] },
 ];
 
-export function getOpportunityDomains(
-  raceEthnicity: string,
-  gender: string
-): readonly string[] {
-  return OPPORTUNITY_SOURCES.filter((s) => {
-    const matchesGeneral = s.tags.includes("general");
-    const matchesRace = s.tags.some((tag) =>
-      raceEthnicity.toLowerCase().includes(tag.toLowerCase())
-    );
-    const matchesGender = s.tags.some((tag) =>
-      gender.toLowerCase().includes(tag.toLowerCase())
-    );
-    return matchesGeneral || matchesRace || matchesGender;
-  }).map((s) => s.domain);
-}

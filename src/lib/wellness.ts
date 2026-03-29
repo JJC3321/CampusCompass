@@ -67,18 +67,3 @@ export const WELLNESS_SOURCES: readonly WellnessSource[] = [
   { domain: "sleepfoundation.org", name: "Sleep Foundation", tags: ["general"] },
 ];
 
-export function getWellnessDomains(
-  raceEthnicity: string,
-  gender: string
-): readonly string[] {
-  return WELLNESS_SOURCES.filter((s) => {
-    const matchesGeneral = s.tags.includes("general");
-    const matchesRace = s.tags.some((tag) =>
-      raceEthnicity.toLowerCase().includes(tag.toLowerCase())
-    );
-    const matchesGender = s.tags.some((tag) =>
-      gender.toLowerCase().includes(tag.toLowerCase())
-    );
-    return matchesGeneral || matchesRace || matchesGender;
-  }).map((s) => s.domain);
-}
